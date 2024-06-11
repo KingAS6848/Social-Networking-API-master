@@ -6,6 +6,7 @@ const likeRoute =  express.Router();
 const controller = new likeController();
 
 likeRoute.post('/:id',controller.toggleLikes);
+likeRoute.get('/:id',controller.postLikes)
 
 
 

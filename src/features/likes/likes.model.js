@@ -9,9 +9,15 @@ export default class LikeSchema{
         this.userId = userId;
     }
 
-    postLikes(postId){
+  static  postLikes(postId){
+         const post = PostSchema.getById(postId);
+         if(post){
+            if(post.likes){
 
-
+                return post.likes;
+            }
+         }
+        return null;
 
     }
 

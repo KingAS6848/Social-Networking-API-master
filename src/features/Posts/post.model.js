@@ -18,13 +18,20 @@ export default class PostSchema{
         return  newPost;
     }
 
-    static getByEmail(email){
-      const userId = UserSchema.getAll().find(u=> u.email == email);
+  static getByEmail(email) {
+  // Retrieve the user by email
+  const user = UserSchema.getAll().find(u => u.email === email);
 
-      const userPosts = posts.filter(p=> p.userID == userId.id);
+  // Check if user exists
+  if (!user) {
+    return []; // Return an empty array if user is not found
+  }
 
-      return userPosts;
-    }
+  // Filter posts for the given user ID
+  const userPosts = posts.filter(p => p.userID === user.id);
+
+  return userPosts;
+}
 
     static getById(id){
           const post = posts.find(p=> p.id == id);
@@ -63,13 +70,13 @@ const posts = [
     },
     {
       id: 2,
-      userID: 102,
+      userID: 2,
       caption: "Hiking adventure in the mountains",
       imageURL: "https://example.com/images/hiking.jpg"
     },
     {
       id: 3,
-      userID: 103,
+      userID: 2,
       caption: "Delicious homemade pizza",
       imageURL: "https://example.com/images/pizza.jpg"
     },
