@@ -21,9 +21,33 @@ export default class PostSchema{
     static getByEmail(email){
       const userId = UserSchema.getAll().find(u=> u.email == email);
 
-      const userPosts = posts.filter(p=> p.id == userId);
+      const userPosts = posts.filter(p=> p.userID == userId.id);
 
       return userPosts;
+    }
+
+    static getById(id){
+          const post = posts.find(p=> p.id == id);
+          return post;
+    }
+
+    static delete(id){
+      // const postIndex = posts.findIndex(p=> p.id == id && p.userID == userId); 
+      const postIndex = posts.findIndex(p=> p.id == id);
+      if(postIndex >= 0){
+       posts.splice(postIndex,1);
+       return true;
+      }
+      return false;
+
+    }
+    static update(id,caption,imageURL){
+      const postIndex = posts.findIndex(p=>p.id == id);
+      if (postIndex !== -1) {
+        posts[postIndex] = { ...posts[postIndex], caption, imageURL };
+             return posts[postIndex] ;
+      }
+      
     }
 
 

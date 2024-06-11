@@ -25,4 +25,10 @@ export default class UserSchema{
     }
 }
 
-const users =[];
+const users = [
+    new UserSchema(1, 'Alice', 'alice@example.com', 'password123'),
+    new UserSchema(2, 'Bob', 'bob@example.com', 'securepass'),
+    new UserSchema(3, 'Charlie', 'charlie@example.com', 'secretword'),
+    new UserSchema(4, 'David', 'david@example.com', '12345678'),
+    new UserSchema(5, 'Eve', 'eve@example.com', 'letmein')
+  ];
