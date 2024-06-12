@@ -12,7 +12,7 @@ server.use(express.json());
 server.use(express.urlencoded({extended:false}));
 
 
-server.use('/api/users',logMiddlware,userRoute);
+server.use('/api/users',userRoute);
 server.use('/api/posts',logMiddlware,jwtMiddleware,postRoute);
 server.use('/api/comments',logMiddlware,jwtMiddleware,commentRoute);
 server.use('/api/likes',logMiddlware,jwtMiddleware,likeRoute);
