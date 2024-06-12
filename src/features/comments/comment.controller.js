@@ -13,10 +13,10 @@ export default class commentController {
                 return res.status(201).send(result);
             }
         } catch (error) {
-            console.error(error);
-            return res.status(500).send({
+            // console.error(erro);
+            return res.status(error.code).send({
                 success: false,
-                message: "Internal server error"
+                message: error.message
             });
         }
     }
@@ -34,10 +34,9 @@ export default class commentController {
                 message: "No comments found"
             });
         } catch (error) {
-            console.error(error);
-            return res.status(500).send({
+            return res.status(error.code).send({
                 success: false,
-                message: "Internal server error"
+                message: error.message
             });
         }
     }
@@ -56,10 +55,9 @@ export default class commentController {
                 message: "No comment found"
             });
         } catch (error) {
-            console.error(error);
-            return res.status(500).send({
+            return res.status(error.code).send({
                 success: false,
-                message: "Internal server error"
+                message: error.message
             });
         }
     }
@@ -80,10 +78,9 @@ export default class commentController {
                 message: "No comment found"
             });
         } catch (error) {
-            console.error(error);
-            return res.status(500).send({
+            return res.status(error.code).send({
                 success: false,
-                message: "Internal server error"
+                message: error.message
             });
         }
     }

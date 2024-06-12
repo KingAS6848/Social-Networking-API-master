@@ -1,4 +1,5 @@
 import PostSchema from "../Posts/post.model.js";
+import { ApplicationError } from '../../error-handler/applicationError.js';
 
 const likes = [];
 
@@ -12,7 +13,7 @@ export default class LikeSchema {
     static postLikes(postId) {
         const post = PostSchema.getById(postId);
         if (!post) {
-            throw new Error(`Post with ID ${postId} not found.`);
+            throw new ApplicationError(`Post with ID ${postId} not found.`,404);
         }
         if (post.likes) {
             return post.likes;
@@ -23,7 +24,7 @@ export default class LikeSchema {
     static toggle(postId, userId) {
         const post = PostSchema.getById(postId);
         if (!post) {
-            throw new Error(`Post with ID ${postId} not found.`);
+            throw new ApplicationError(`Post with ID ${postId} not found.`,404);
         }
 
         if (!post.likes) {

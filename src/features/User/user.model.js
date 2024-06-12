@@ -1,3 +1,5 @@
+import { ApplicationError } from '../../error-handler/applicationError.js';
+
 export default class UserSchema {
     constructor(id, name, email, password) {
         this.id = id;
@@ -19,7 +21,7 @@ export default class UserSchema {
     static login(email, password) {
         const userFound = users.find(user => user.email === email && user.password === password);
         if (!userFound) {
-            throw new Error("Invalid email or password.");
+            throw new ApplicationError("Invalid email or password.", 400);
         }
         return userFound;
     }

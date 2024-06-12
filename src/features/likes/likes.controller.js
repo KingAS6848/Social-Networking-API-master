@@ -9,10 +9,9 @@ export default class likeController {
             const post = LikeSchema.toggle(postId, userId);
             return res.send(post);
         } catch (error) {
-            console.error(error);
-            return res.status(500).send({
+            return res.status(error.code).send({
                 success: false,
-                message: "Internal server error"
+                message: error.message
             });
         }
     }
@@ -29,10 +28,9 @@ export default class likeController {
                 message: "No likes found for the post"
             });
         } catch (error) {
-            console.error(error);
-            return res.status(500).send({
+            return res.status(error.code).send({
                 success: false,
-                message: "Internal server error"
+                message: error.message
             });
         }
     }

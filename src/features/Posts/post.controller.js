@@ -2,9 +2,9 @@ import PostSchema from "./post.model.js";
 
 export default class postController {
 
-    async getAllPosts(req, res) {
+     getAllPosts(req, res) {
         try {
-            const allPost = await PostSchema.getAll();
+            const allPost =  PostSchema.getAll();
             return res.status(200).send(allPost);
         } catch (error) {
             console.error(error);
@@ -15,12 +15,12 @@ export default class postController {
         }
     }
 
-    async newPost(req, res) {
+     newPost(req, res) {
         try {
             const caption = req.body.caption;
             const userID = req.user.id;
             const imageURL = req.file.path;
-            const newPost = await PostSchema.newPost(userID, caption, imageURL);
+            const newPost =  PostSchema.newPost(userID, caption, imageURL);
 
             if (newPost) {
                 console.log(newPost);
@@ -42,10 +42,10 @@ export default class postController {
         }
     }
 
-    async UserPosts(req, res) {
+     UserPosts(req, res) {
         try {
             const email = req.query.email;
-            const userPosts = await PostSchema.getByEmail(email);
+            const userPosts =  PostSchema.getByEmail(email);
             if (userPosts && userPosts.length > 0) {
                 return res.status(200).send(userPosts);
             }
@@ -54,18 +54,18 @@ export default class postController {
                 message: "No posts found for the user"
             });
         } catch (error) {
-            console.error(error);
-            return res.status(500).send({
+           
+            return res.status(error.code).send({
                 success: false,
-                message: "Internal server error"
+                message: error.message
             });
         }
     }
 
-    async postById(req, res) {
+     postById(req, res) {
         try {
             const { id } = req.params;
-            const post = await PostSchema.getById(id);
+            const post =  PostSchema.getById(id);
             if (post) {
                 return res.status(200).send(post);
             }
@@ -74,18 +74,17 @@ export default class postController {
                 message: "Invalid post ID"
             });
         } catch (error) {
-            console.error(error);
-            return res.status(500).send({
+            return res.status(error.code).send({
                 success: false,
-                message: "Internal server error"
+                message: error.message
             });
         }
     }
 
-    async deletePost(req, res) {
+     deletePost(req, res) {
         try {
             const id = req.params.id;
-            const success = await PostSchema.delete(id);
+            const success =  PostSchema.delete(id);
             if (success) {
                 return res.status(200).send({
                     success: true,
@@ -97,20 +96,19 @@ export default class postController {
                 message: "Bad request"
             });
         } catch (error) {
-            console.error(error);
-            return res.status(500).send({
+            return res.status(error.code).send({
                 success: false,
-                message: "Internal server error"
+                message: error.message
             });
         }
     }
 
-    async updatePost(req, res) {
+     updatePost(req, res) {
         try {
             const id = req.params.id;
             const caption = req.body.caption;
             const imageURL = req.file.path;
-            const updatedPost = await PostSchema.update(id, caption, imageURL);
+            const updatedPost =  PostSchema.update(id, caption, imageURL);
             if (updatedPost) {
                 return res.status(200).send(updatedPost);
             }
@@ -119,10 +117,9 @@ export default class postController {
                 message: "Bad request"
             });
         } catch (error) {
-            console.error(error);
-            return res.status(500).send({
+            return res.status(error.code).send({
                 success: false,
-                message: "Internal server error"
+                message: error.message
             });
         }
     }

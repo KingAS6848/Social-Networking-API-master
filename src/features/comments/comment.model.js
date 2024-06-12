@@ -1,4 +1,5 @@
 import PostSchema from "../Posts/post.model.js";
+import { ApplicationError } from '../../error-handler/applicationError.js';
 
 const comments = [];
 
@@ -16,7 +17,7 @@ export default class CommentSchema {
         comments.push(newComment);
         const post = PostSchema.getAll().find(p => p.id == postId);
         if (!post) {
-            throw new Error("Post not found");
+            throw new ApplicationError("Post not found");
         }
         if (!post.comment) {
             post.comment = [];
@@ -28,7 +29,7 @@ export default class CommentSchema {
     static postComments(postId) {
         const post = PostSchema.getAll().find(p => p.id == postId);
         if (!post || !post.comment) {
-            throw new Error("Post or comments not found");
+            throw new ApplicationError("Post or comments not found");
         }
         return post.comment;
     }
@@ -44,7 +45,7 @@ export default class CommentSchema {
                 }
             }
         }
-        throw new Error("Comment not found");
+        throw new ApplicationError("Comment not found");
     }
 
     static delete(id) {
@@ -57,6 +58,6 @@ export default class CommentSchema {
                 }
             }
         }
-        throw new Error("Comment not found");
+        throw new ApplicationError("Comment not found");
     }
 }

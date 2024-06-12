@@ -19,17 +19,18 @@ export default class userController{
           message: "Account created successfully"
       });
   } catch (error) {
-      console.error(error);
-      return res.status(500).send({
-          success: false,
-          message: "Internal server error"
-      });
+    return res.status(error.code).send({
+      success: false,
+      message: error.message
+  });
   }
 }
 
  
 
- login(req,res){
+ login(req,res,next){
+
+  try {
     const {email,password} = req.body;
     const userFound = UserSchema.login(email,password);
     if(!userFound){
@@ -45,5 +46,9 @@ export default class userController{
       message:"User Login Sucessfully",
       token
   });
+  } catch (error) {
+    next(error);
+  }
+    
  }
 }

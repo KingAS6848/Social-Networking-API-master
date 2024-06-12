@@ -1,4 +1,5 @@
 import UserSchema from "../User/user.model.js";
+import { ApplicationError } from '../../error-handler/applicationError.js';
 
 export default class PostSchema {
     constructor(id, userID, caption, imageURL) {
@@ -21,7 +22,7 @@ export default class PostSchema {
     static getByEmail(email) {
         const user = UserSchema.getAll().find(u => u.email === email);
         if (!user) {
-            throw new Error(`User with email ${email} not found.`);
+            throw new ApplicationError(`User with email ${email} not found.`,404);
         }
         const userPosts = posts.filter(p => p.userID === user.id);
         return userPosts;
@@ -30,7 +31,7 @@ export default class PostSchema {
     static getById(id) {
         const post = posts.find(p => p.id == id);
         if (!post) {
-            throw new Error(`Post with ID ${id} not found.`);
+            throw new ApplicationError(`Post with ID ${id} not found.`,404);
         }
         return post;
     }
@@ -38,7 +39,7 @@ export default class PostSchema {
     static delete(id) {
         const postIndex = posts.findIndex(p => p.id == id);
         if (postIndex === -1) {
-            throw new Error(`Post with ID ${id} not found.`);
+            throw new ApplicationError(`Post with ID ${id} not found.`,404);
         }
         posts.splice(postIndex, 1);
         return true;
@@ -47,7 +48,7 @@ export default class PostSchema {
     static update(id, caption, imageURL) {
         const postIndex = posts.findIndex(p => p.id == id);
         if (postIndex === -1) {
-            throw new Error(`Post with ID ${id} not found.`);
+            throw new ApplicationError(`Post with ID ${id} not found.`,404);
         }
         posts[postIndex] = { ...posts[postIndex], caption, imageURL };
         return posts[postIndex];
