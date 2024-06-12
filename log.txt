@@ -1,0 +1,1 @@
+{"level":"info","message":"POST /api/users/signin - Body: {\"email\":\"bob@example.com\",\"password\":\"securepass\"} - IP: ::1","service":"user-service"}
